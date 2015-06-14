@@ -107,6 +107,17 @@ static void main_window_unload(Window *window) {
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+    /* Test, this changes the image once a minute */
+    bg_image = bg_image == RESOURCE_ID_IMAGE_RENEGADE ? RESOURCE_ID_IMAGE_PARAGON : RESOURCE_ID_IMAGE_RENEGADE;
+    if (bg_image == RESOURCE_ID_IMAGE_RENEGADE)
+    {
+        bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_renegade);
+    }
+    else
+    {
+        bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_paragon);
+    }
+
     update_time();
 }
 
