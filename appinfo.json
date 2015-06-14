@@ -4,7 +4,7 @@
         ""
     ],
     "companyName": "clach04",
-    "longName": "watchface_renegade",
+    "longName": "watchface_paragade - Paragon or Renegade?",
     "projectType": "native",
     "resources": {
         "media": [
@@ -33,12 +33,12 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "watchface_renegade",
+    "shortName": "watchface_paragade",
     "targetPlatforms": [
         "basalt"
     ],
     "uuid": "449d268b-9826-423f-998a-3276b3b395eb",
-    "versionLabel": "0.1",
+    "versionLabel": "0.2",
     "watchapp": {
         "watchface": true
     }

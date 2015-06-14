@@ -19,6 +19,8 @@ static GFont       s_time_font;
 static BitmapLayer *s_background_layer;
 static GBitmap     *s_background_bitmap;
 
+static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
+
 static void update_time() {
     // Get a tm structure
     time_t    temp = time(NULL);
@@ -40,11 +42,6 @@ static void update_time() {
     text_layer_set_text(s_time_layer, buffer);
 }
 
-//#define BG_IMAGE RESOURCE_ID_IMAGE_N7LOGO_BLACK
-//#define BG_IMAGE RESOURCE_ID_IMAGE_N7LOGO_WHITE
-//#define BG_IMAGE  RESOURCE_ID_IMAGE_RENEGADE
-#define BG_IMAGE  RESOURCE_ID_IMAGE_PARAGON
-
 //#define FONT_COLOR GColorBlack
 //#define FONT_COLOR GColorWhite
 // White on Time looks pretty nice
@@ -59,7 +56,7 @@ static void update_time() {
 
 static void main_window_load(Window *window) {
     // Create GBitmap, then set to created BitmapLayer
-    s_background_bitmap = gbitmap_create_with_resource(BG_IMAGE);
+    s_background_bitmap = gbitmap_create_with_resource(bg_image);
     
     s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
     bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
