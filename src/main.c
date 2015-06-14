@@ -17,7 +17,8 @@ static TextLayer *s_time_layer;
 
 static GFont       s_time_font;
 static BitmapLayer *s_background_layer;
-static GBitmap     *s_background_bitmap;
+static GBitmap     *s_background_bitmap_renegade;
+static GBitmap     *s_background_bitmap_paragon;
 
 static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
 
@@ -56,10 +57,18 @@ static void update_time() {
 
 static void main_window_load(Window *window) {
     // Create GBitmap, then set to created BitmapLayer
-    s_background_bitmap = gbitmap_create_with_resource(bg_image);
+    s_background_bitmap_renegade = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_RENEGADE);
+    s_background_bitmap_paragon = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PARAGON);
     
     s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
-    bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
+    if (bg_image == RESOURCE_ID_IMAGE_RENEGADE)
+    {
+        bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_renegade);
+    }
+    else
+    {
+        bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_paragon);
+    }
     layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
 
     // Create time TextLayer
@@ -87,7 +96,8 @@ static void main_window_unload(Window *window) {
     fonts_unload_custom_font(s_time_font);
 
     //Destroy GBitmap
-    gbitmap_destroy(s_background_bitmap);
+    gbitmap_destroy(s_background_bitmap_renegade);
+    gbitmap_destroy(s_background_bitmap_paragon);
 
     //Destroy BitmapLayer
     bitmap_layer_destroy(s_background_layer);
