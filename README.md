@@ -1,4 +1,4 @@
-# Paragade - a Pebble watchface
+# ![](resources/images/icon~color.png) Paragade - a Pebble watchface
 
 Basic digital watch face for the Pebble smartwatch. Features:
   * Updates once per minute
