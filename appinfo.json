@@ -1,0 +1,45 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "clach04",
+    "longName": "watchface_renegade",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/icon.png",
+                "menuIcon": true,
+                "name": "IMAGE_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/renegade_logo.png",
+                "name": "IMAGE_RENEGADE",
+                "type": "png"
+            },
+            {
+                "file": "images/paragon_logo.png",
+                "name": "IMAGE_PARAGON",
+                "type": "png"
+            },
+            {
+                "characterRegex": "[0-9:]",
+                "file": "fonts/jupiter.ttf",
+                "name": "FONT_JUPITER_60",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "watchface_renegade",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "449d268b-9826-423f-998a-3276b3b395eb",
+    "versionLabel": "0.1",
+    "watchapp": {
+        "watchface": true
+    }
+}
