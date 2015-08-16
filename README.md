@@ -5,6 +5,8 @@ Basic digital watch face for the Pebble (Time) smartwatch. Features:
 
 ![](screenshots/basalt_paragon_001.png)
 ![](screenshots/basalt_renegade_001.png)
+![](screenshots/aplite_paragon_001.png)
+![](screenshots/aplite_renegade_001.png)
 
 Paragade/Renegon, Paragon or Renegade?
 
