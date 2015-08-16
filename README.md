@@ -3,7 +3,7 @@
 Basic digital watch face for the Pebble smartwatch. Features:
   * Updates once per minute
 
-Paragade/Renegon, Paragon or Renegade
+Paragade/Renegon, Paragon or Renegade?
 
 Acknowledgements
 
