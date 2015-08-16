@@ -3,6 +3,8 @@
 Basic digital watch face for the Pebble Time smartwatch. Features:
   * Updates once per minute
 
+![](screenshots/basalt_paragon_001.png)
+
 Paragade/Renegon, Paragon or Renegade?
 
 Not released for OG Pebble, the image used are transparent and sized to the log size, not screen size. With the Pebble SDK's transparency support (as of Aug 2015 - http://developer.getpebble.com/guides/pebble-apps/resources/image-resources/) for Aplite platform this results in display issues. Aplite support would needs reworking of the image resources and painting locations.
