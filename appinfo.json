@@ -9,6 +9,12 @@
     "resources": {
         "media": [
             {
+                "characterRegex": "[0-9:]",
+                "file": "fonts/jupiter.ttf",
+                "name": "FONT_JUPITER_60",
+                "type": "font"
+            },
+            {
                 "file": "images/icon.png",
                 "menuIcon": true,
                 "name": "IMAGE_ICON",
@@ -23,18 +29,13 @@
                 "file": "images/paragon_logo.png",
                 "name": "IMAGE_PARAGON",
                 "type": "png"
-            },
-            {
-                "characterRegex": "[0-9:]",
-                "file": "fonts/jupiter.ttf",
-                "name": "FONT_JUPITER_60",
-                "type": "font"
             }
         ]
     },
     "sdkVersion": "3",
     "shortName": "watchface_paragade",
     "targetPlatforms": [
+        "aplite",
         "basalt"
     ],
     "uuid": "449d268b-9826-423f-998a-3276b3b395eb",
