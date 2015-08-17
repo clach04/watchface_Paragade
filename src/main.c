@@ -34,6 +34,7 @@ static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PA
 
 /* For colors, see http://developer.getpebble.com/tools/color-picker/#0000FF */
 static GColor       time_color;
+static GColor       background_color;
 static int          config_time_color;
 
 
@@ -153,6 +154,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 static void init() {
     time_color = GColorWhite;
+    background_color = GColorBlack;
 
 #ifdef PBL_PLATFORM_BASALT
     /* TODO refactor */
@@ -166,7 +168,7 @@ static void init() {
 
     // Create main Window element and assign to pointer
     s_main_window = window_create();
-    window_set_background_color(s_main_window, GColorBlack); // TODO move me into handler?
+    window_set_background_color(s_main_window, background_color); // TODO move me into handler?
 
     // Set handlers to manage the elements inside the Window
     window_set_window_handlers(s_main_window, (WindowHandlers) {
