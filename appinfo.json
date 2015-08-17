@@ -1,5 +1,8 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_TIME_COLOR": 0,
+        "KEY_VIBRATE_ON_DISCONNECT": 1
+    },
     "capabilities": [
         ""
     ],
@@ -9,10 +12,9 @@
     "resources": {
         "media": [
             {
-                "characterRegex": "[0-9:]",
-                "file": "fonts/jupiter.ttf",
-                "name": "FONT_JUPITER_60",
-                "type": "font"
+                "file": "images/paragon_logo.png",
+                "name": "IMAGE_PARAGON",
+                "type": "png"
             },
             {
                 "file": "images/icon.png",
@@ -26,9 +28,10 @@
                 "type": "png"
             },
             {
-                "file": "images/paragon_logo.png",
-                "name": "IMAGE_PARAGON",
-                "type": "png"
+                "characterRegex": "[0-9:]",
+                "file": "fonts/jupiter.ttf",
+                "name": "FONT_JUPITER_60",
+                "type": "font"
             }
         ]
     },

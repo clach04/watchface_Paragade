@@ -1,5 +1,5 @@
 /*
-** Renegade watch face - BW
+** Renegade watch face - Color or Mono
 **
 ** Acknowledgements
 **   * This is only a slightly modified version of Pebble Watchface tutorial
@@ -12,6 +12,16 @@
 
 #include <pebble.h>
 
+#define FONT_NAME RESOURCE_ID_FONT_JUPITER_60
+
+//#define CLOCK_POS GRect(5, 52, 139, 50)
+#define CLOCK_POS GRect(0, 52, 144, 168) /* probably taller than really needed */
+
+/* PebbleKit JS, Message Keys, Pebble config keys */
+// FIXME why can't this be generated from the json settings file into a header?
+#define KEY_TIME_COLOR 0
+
+
 static Window    *s_main_window;
 static TextLayer *s_time_layer;
 
@@ -21,6 +31,37 @@ static GBitmap     *s_background_bitmap_renegade;
 static GBitmap     *s_background_bitmap_paragon;
 
 static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
+
+/* For colors, see http://developer.getpebble.com/tools/color-picker/#0000FF */
+static GColor       time_color;
+static int          config_time_color;
+
+
+static void in_recv_handler(DictionaryIterator *iterator, void *context)
+{
+    Tuple *t=NULL;
+
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "in_recv_handler() called");
+    t = dict_read_first(iterator);
+    while(t != NULL)
+    {
+        switch(t->key)
+        {
+            case KEY_TIME_COLOR:
+                APP_LOG(APP_LOG_LEVEL_DEBUG, "got KEY_TIME_COLOR");
+                config_time_color = (int)t->value->int32;
+                APP_LOG(APP_LOG_LEVEL_DEBUG, "Persisting time color: 0x%06x", config_time_color);
+                persist_write_int(KEY_TIME_COLOR, config_time_color);
+                time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorWhite);
+                text_layer_set_text_color(s_time_layer, time_color);
+                break;
+            default:
+                APP_LOG(APP_LOG_LEVEL_ERROR, "Unknown key %d! :-(", (int) t->key);
+                break;
+        }
+        t = dict_read_next(iterator);
+    }
+}
 
 static void update_time() {
     // Get a tm structure
@@ -43,17 +84,6 @@ static void update_time() {
     text_layer_set_text(s_time_layer, buffer);
 }
 
-//#define FONT_COLOR GColorBlack
-//#define FONT_COLOR GColorWhite
-// White on Time looks pretty nice
-//#define FONT_COLOR COLOR_FALLBACK(GColorBlue, GColorWhite)
-#define FONT_COLOR GColorWhite
-
-//FONT_PERFECT_DOS_48
-#define FONT_NAME RESOURCE_ID_FONT_JUPITER_60
-
-//#define CLOCK_POS GRect(5, 52, 139, 50)
-#define CLOCK_POS GRect(0, 52, 144, 168) /* probably taller than really needed */
 
 static void main_window_load(Window *window) {
     // Create GBitmap, then set to created BitmapLayer
@@ -74,7 +104,7 @@ static void main_window_load(Window *window) {
     // Create time TextLayer
     s_time_layer = text_layer_create(CLOCK_POS);
     text_layer_set_background_color(s_time_layer, GColorClear);
-    text_layer_set_text_color(s_time_layer, FONT_COLOR);
+    text_layer_set_text_color(s_time_layer, time_color);
     text_layer_set_text(s_time_layer, "00:00");
 
     // Create GFont
@@ -122,6 +152,18 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void init() {
+    time_color = GColorWhite;
+
+#ifdef PBL_PLATFORM_BASALT
+    /* TODO refactor */
+    if (persist_exists(KEY_TIME_COLOR))
+    {
+        config_time_color = persist_read_int(KEY_TIME_COLOR);
+        APP_LOG(APP_LOG_LEVEL_INFO, "Read time color: %x", config_time_color);
+        time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorWhite);
+    }
+#endif /* PBL_PLATFORM_BASALT */
+
     // Create main Window element and assign to pointer
     s_main_window = window_create();
     window_set_background_color(s_main_window, GColorBlack); // TODO move me into handler?
@@ -137,6 +179,12 @@ static void init() {
 
     // Register with TickTimerService
     tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+
+    /* Register config event */
+    /* TODO use AppSync instead? */
+    app_message_register_inbox_received(in_recv_handler);
+    app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum()); 
+
 }
 
 static void deinit() {
