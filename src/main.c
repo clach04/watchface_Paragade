@@ -87,11 +87,15 @@ static void update_time() {
 
 
 static void main_window_load(Window *window) {
+    Layer *window_layer = window_get_root_layer(window);
+    GRect bounds = layer_get_bounds(window_layer);
+
     // Create GBitmap, then set to created BitmapLayer
     s_background_bitmap_renegade = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_RENEGADE);
     s_background_bitmap_paragon = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PARAGON);
     
-    s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
+    //s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
+    s_background_layer = bitmap_layer_create(bounds);
     if (bg_image == RESOURCE_ID_IMAGE_RENEGADE)
     {
         bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_renegade);
@@ -100,7 +104,14 @@ static void main_window_load(Window *window) {
     {
         bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_paragon);
     }
-    layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
+#ifdef PBL_PLATFORM_APLITE
+     bitmap_layer_set_compositing_mode(s_background_layer, GCompOpAssign);
+#elif PBL_PLATFORM_BASALT
+     bitmap_layer_set_compositing_mode(s_background_layer, GCompOpSet);
+#endif
+
+    //layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
+    layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
 
     // Create time TextLayer
     s_time_layer = text_layer_create(CLOCK_POS);
@@ -155,6 +166,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 static void init() {
     time_color = GColorWhite;
     background_color = GColorBlack;
+    // Invert - white background
+    time_color = GColorBlack;
+    background_color = GColorWhite;
 
 #ifdef PBL_PLATFORM_BASALT
     /* TODO refactor */
