@@ -37,6 +37,8 @@ Pebble.addEventListener('webviewclosed',
         try {
             var configuration = JSON.parse(decodeURIComponent(e.response));
             var vibrate_disconnect = 0;
+
+            console.log('dictionary to validate ' + JSON.stringify(configuration));
             if ('vibrate_disconnect' in configuration)
             {
                 switch (configuration.vibrate_disconnect) {

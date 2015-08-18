@@ -4,7 +4,7 @@
         "KEY_VIBRATE_ON_DISCONNECT": 1
     },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "clach04",
     "longName": "watchface_paragade - Paragon or Renegade?",
