@@ -164,9 +164,12 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 static void init() {
     time_color = GColorWhite;
     background_color = GColorBlack;
-    // Invert - white background
+
+#ifdef PBL_PLATFORM_BASALT
+    /* Invert - white background - only looks correct on Pebble Time */
     time_color = GColorBlack;
     background_color = GColorWhite;
+#endif /* PBL_PLATFORM_BASALT */
 
 #ifdef PBL_PLATFORM_BASALT
     /* TODO refactor */
@@ -176,6 +179,7 @@ static void init() {
         APP_LOG(APP_LOG_LEVEL_INFO, "Read time color: %x", config_time_color);
         time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorWhite);
     }
+    /* TODO background_color */
 #endif /* PBL_PLATFORM_BASALT */
 
     // Create main Window element and assign to pointer
