@@ -94,7 +94,6 @@ static void main_window_load(Window *window) {
     s_background_bitmap_renegade = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_RENEGADE);
     s_background_bitmap_paragon = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PARAGON);
     
-    //s_background_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
     s_background_layer = bitmap_layer_create(bounds);
     if (bg_image == RESOURCE_ID_IMAGE_RENEGADE)
     {
@@ -110,7 +109,6 @@ static void main_window_load(Window *window) {
      bitmap_layer_set_compositing_mode(s_background_layer, GCompOpSet);
 #endif
 
-    //layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
     layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
 
     // Create time TextLayer
