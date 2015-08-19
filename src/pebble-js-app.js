@@ -1,3 +1,7 @@
+Pebble.addEventListener('ready', function() {
+  console.log('PebbleKit JS ready!');
+});
+
 Pebble.addEventListener('showConfiguration', function(e) {
   var color = localStorage.getItem('color');
   if (! color)

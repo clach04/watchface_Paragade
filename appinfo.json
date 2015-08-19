@@ -8,7 +8,7 @@
         "configurable"
     ],
     "companyName": "clach04",
-    "longName": "watchface_paragade - Paragon or Renegade?",
+    "longName": "Paragade",
     "projectType": "native",
     "resources": {
         "media": [
@@ -37,7 +37,7 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "watchface_paragade",
+    "shortName": "Paragade",
     "targetPlatforms": [
         "aplite",
         "basalt"
