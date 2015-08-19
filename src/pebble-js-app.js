@@ -26,6 +26,8 @@ Pebble.addEventListener('showConfiguration', function(e) {
       '?' +
       'color=' + color + '&' +
       'vibrate_disconnect=' + vibrate_disconnect;
+  // URL params not used....
+  URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html';
   console.log('Configuration window opened. ' + URL);
   Pebble.openURL(URL);
 });
@@ -57,11 +59,11 @@ Pebble.addEventListener('webviewclosed',
                 }
             }
             var dictionary = {
-              "KEY_TIME_COLOR": parseInt(configuration.color, 16),
+              "KEY_TIME_COLOR": parseInt(configuration.time_color, 16),
               "KEY_VIBRATE_ON_DISCONNECT": vibrate_disconnect
             };
-            console.log('Color ' + configuration.color);
-            localStorage.setItem('color', configuration.color);
+            console.log('time_color ' + configuration.time_color);
+            localStorage.setItem('time_color', configuration.time_color);
             console.log('vibrate_disconnect ' + configuration.vibrate_disconnect);
             localStorage.setItem('vibrate_disconnect', configuration.vibrate_disconnect);
             console.log('dictionary to send ' + JSON.stringify(dictionary));
