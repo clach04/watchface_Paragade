@@ -20,6 +20,7 @@
 /* PebbleKit JS, Message Keys, Pebble config keys */
 // FIXME why can't this be generated from the json settings file into a header?
 #define KEY_TIME_COLOR 0
+#define KEY_BACKGROUND_COLOR 2
 
 
 static Window    *s_main_window;
@@ -36,6 +37,7 @@ static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PA
 static GColor       time_color;
 static GColor       background_color;
 static int          config_time_color;
+static int          config_background_color;
 
 
 static void in_recv_handler(DictionaryIterator *iterator, void *context)
@@ -53,9 +55,21 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context)
                 config_time_color = (int)t->value->int32;
                 APP_LOG(APP_LOG_LEVEL_DEBUG, "Persisting time color: 0x%06x", config_time_color);
                 persist_write_int(KEY_TIME_COLOR, config_time_color);
-                time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorWhite);
+                time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorBlack); // FIXME Aplite colors inverted?
                 text_layer_set_text_color(s_time_layer, time_color);
                 break;
+            
+            case KEY_BACKGROUND_COLOR:
+                APP_LOG(APP_LOG_LEVEL_DEBUG, "got KEY_BACKGROUND_COLOR");
+                config_background_color = (int)t->value->int32;
+                APP_LOG(APP_LOG_LEVEL_DEBUG, "Persisting background color: 0x%06x", config_background_color);
+                persist_write_int(KEY_BACKGROUND_COLOR, config_background_color);
+                background_color = COLOR_FALLBACK(GColorFromHEX(config_background_color), GColorWhite); // FIXME Aplite colors inverted?
+                window_set_background_color(s_main_window, background_color);
+                break;
+            
+            
+                
             default:
                 APP_LOG(APP_LOG_LEVEL_ERROR, "Unknown key %d! :-(", (int) t->key);
                 break;
@@ -108,6 +122,8 @@ static void main_window_load(Window *window) {
 #elif PBL_PLATFORM_BASALT
      bitmap_layer_set_compositing_mode(s_background_layer, GCompOpSet);
 #endif
+
+    window_set_background_color(s_main_window, background_color);
 
     layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
 
@@ -179,12 +195,16 @@ static void init() {
         APP_LOG(APP_LOG_LEVEL_INFO, "Read time color: %x", config_time_color);
         time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorWhite);
     }
-    /* TODO background_color */
+    if (persist_exists(KEY_BACKGROUND_COLOR))
+    {
+        config_background_color = persist_read_int(KEY_BACKGROUND_COLOR);
+        APP_LOG(APP_LOG_LEVEL_INFO, "Read background color: %x", config_background_color);
+        background_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorBlack);
+    }
 #endif /* PBL_PLATFORM_BASALT */
 
     // Create main Window element and assign to pointer
     s_main_window = window_create();
-    window_set_background_color(s_main_window, background_color); // TODO move me into handler?
 
     // Set handlers to manage the elements inside the Window
     window_set_window_handlers(s_main_window, (WindowHandlers) {

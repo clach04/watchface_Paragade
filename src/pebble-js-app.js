@@ -60,6 +60,7 @@ Pebble.addEventListener('webviewclosed',
             }
             var dictionary = {
               "KEY_TIME_COLOR": parseInt(configuration.time_color, 16),
+              "KEY_BACKGROUND_COLOR": parseInt(configuration.background_color, 16),
               "KEY_VIBRATE_ON_DISCONNECT": vibrate_disconnect
             };
             console.log('time_color ' + configuration.time_color);
