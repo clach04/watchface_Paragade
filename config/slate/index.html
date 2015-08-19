@@ -42,20 +42,6 @@
       </div>
     </div>
 
-    <!-- TODO Lose section, move vib option into above? -->
-    <div class='item-container'>
-      <div class='item-container-header'>Vibrate</div>
-      <div class='item-container-content'>
-        <label class='item'>
-          Vibrate on Bluetooth disconnect
-          <input id='vibrate_disconnect_checkbox' type='checkbox' class='item-toggle'>
-        </label>
-      </div>
-      <div class='item-container-footer'>
-        By default will vibrate on bluetooth disconnect.
-      </div>
-    </div>
-
     <!-- TODO Save rather than submit? -->
     <!-- TODO Cancel button? -->
     <div class='item-container'>
@@ -67,15 +53,13 @@
   <script>
   function getConfigData() {
     var options = {
-      'time_color': document.getElementById('time_color_picker').value,
-      'vibrate_disconnect': document.getElementById('vibrate_disconnect_checkbox').checked
+      'time_color': document.getElementById('time_color_picker').value
     };
 
-    options['color'] = options['time_color']; // FIXME color is for backwards compat...
+    //options['color'] = options['time_color']; // color is for backwards compat... NOT NEEDED for Paragade
 
     // Save for next launch
     localStorage['time_color'] = options['color'];
-    localStorage['vibrate_disconnect'] = options['vibrate_disconnect'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
@@ -104,13 +88,10 @@
 
   (function() {
     // FIXME pick these up as URL parameters...
-    var backgroundColorPicker = document.getElementById('time_color_picker');
-    var highContrastCheckbox = document.getElementById('vibrate_disconnect_checkbox');
 
     // Load any previously saved configuration, if available
-    if(localStorage['vibrate_disconnect']) {
-      highContrastCheckbox.checked = JSON.parse(localStorage['vibrate_disconnect']);
-      backgroundColorPicker.value = localStorage['time_color'];
+    if(localStorage['time_color']) {
+      document.getElementById('time_color_picker').value = localStorage['time_color'];
     }
   })();
   </script>
