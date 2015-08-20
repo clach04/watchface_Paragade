@@ -13,8 +13,14 @@
     "resources": {
         "media": [
             {
-                "file": "images/paragon_logo.png",
-                "name": "IMAGE_PARAGON",
+                "file": "images/icon.png",
+                "menuIcon": true,
+                "name": "IMAGE_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/renegade_logo.png",
+                "name": "IMAGE_RENEGADE",
                 "type": "png"
             },
             {
@@ -24,14 +30,8 @@
                 "type": "font"
             },
             {
-                "file": "images/renegade_logo.png",
-                "name": "IMAGE_RENEGADE",
-                "type": "png"
-            },
-            {
-                "file": "images/icon.png",
-                "menuIcon": true,
-                "name": "IMAGE_ICON",
+                "file": "images/paragon_logo.png",
+                "name": "IMAGE_PARAGON",
                 "type": "png"
             }
         ]
@@ -42,7 +42,7 @@
         "aplite",
         "basalt"
     ],
-    "uuid": "449d268b-9826-423f-998a-3276b3b395eb",
+    "uuid": "df2ce365-5682-4f19-ad4f-9b95f9bac4a7",
     "versionLabel": "0.4",
     "watchapp": {
         "watchface": true
