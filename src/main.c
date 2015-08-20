@@ -199,7 +199,7 @@ static void init() {
     {
         config_background_color = persist_read_int(KEY_BACKGROUND_COLOR);
         APP_LOG(APP_LOG_LEVEL_INFO, "Read background color: %x", config_background_color);
-        background_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorBlack);
+        background_color = COLOR_FALLBACK(GColorFromHEX(config_background_color), GColorBlack);
     }
 #endif /* PBL_PLATFORM_BASALT */
 
