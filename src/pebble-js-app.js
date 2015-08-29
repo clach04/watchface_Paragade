@@ -3,11 +3,17 @@ Pebble.addEventListener('ready', function() {
 });
 
 Pebble.addEventListener('showConfiguration', function(e) {
-  var color = localStorage.getItem('color');
-  if (! color)
+  var background_color = localStorage.getItem('background_color');
+  if (!background_color)
   {
       // http://developer.getpebble.com/tools/color-picker/#0000FF
-      color = "0000FF";  // GColorBlue
+      background_color = "FFFFFF";  // GColorWhite
+  }
+  var time_color = localStorage.getItem('time_color');
+  if (!time_color)
+  {
+      // http://developer.getpebble.com/tools/color-picker/#0000FF
+      time_color = "000000";  // GColorBlack
   }
   var vibrate_disconnect_str = 'off';
   var vibrate_disconnect = localStorage.getItem('vibrate_disconnect');
@@ -26,12 +32,13 @@ Pebble.addEventListener('showConfiguration', function(e) {
   }
 
   //var URL = 'http://clach04.github.io/pebble/JupiterMass/nojquery_pebble-config.html' +
-  var URL = 'http://clach04.github.io/pebble/JupiterMass/pebble-config.html' +
+  var URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html' +
       '?' +
-      'color=' + color + '&' +
+      'background_color=' + background_color + '&' +
+      'time_color=' + time_color + '&' +
       'vibrate_disconnect=' + vibrate_disconnect;
   // URL params not used....
-  URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html';
+  //URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html';
   console.log('Configuration window opened. ' + URL);
   Pebble.openURL(URL);
 });
@@ -67,6 +74,8 @@ Pebble.addEventListener('webviewclosed',
               "KEY_BACKGROUND_COLOR": parseInt(configuration.background_color, 16),
               "KEY_VIBRATE_ON_DISCONNECT": vibrate_disconnect
             };
+            console.log('background_color ' + configuration.background_color);
+            localStorage.setItem('background_color', configuration.background_color);
             console.log('time_color ' + configuration.time_color);
             localStorage.setItem('time_color', configuration.time_color);
             console.log('vibrate_disconnect ' + configuration.vibrate_disconnect);
