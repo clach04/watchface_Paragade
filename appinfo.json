@@ -39,7 +39,6 @@
     "sdkVersion": "3",
     "shortName": "Paragade",
     "targetPlatforms": [
-        "aplite",
         "basalt"
     ],
     "uuid": "df2ce365-5682-4f19-ad4f-9b95f9bac4a7",

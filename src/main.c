@@ -14,11 +14,13 @@
 
 #include "watchface.h"
 
-#ifdef CUSTOM    
+BitmapLayer *s_background_layer=NULL;
+
 static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
+static GBitmap     *s_background_bitmap_renegade=NULL;
+static GBitmap     *s_background_bitmap_paragon=NULL;
 
-
-static void main_window_load(Window *window) {
+void custom_main_window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
 
@@ -44,43 +46,25 @@ static void main_window_load(Window *window) {
     window_set_background_color(s_main_window, background_color);
 
     layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
-
-    // Create time TextLayer
-    s_time_layer = text_layer_create(CLOCK_POS);
-    text_layer_set_background_color(s_time_layer, GColorClear);
-    text_layer_set_text_color(s_time_layer, time_color);
-    text_layer_set_text(s_time_layer, "00:00");
-
-    // Create GFont
-    s_time_font = fonts_load_custom_font(resource_get_handle(FONT_NAME));
-
-    // Apply to TextLayer
-    text_layer_set_font(s_time_layer, s_time_font);
-    text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
-
-    // Add it as a child layer to the Window's root layer
-    layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
-
-    // Make sure the time is displayed from the start
-    update_time();
+    
+    /* End of custom code, call generic code */
+    main_window_load(window);
 }
 
-static void main_window_unload(Window *window) {
-    //Unload GFont
-    fonts_unload_custom_font(s_time_font);
+void custom_main_window_unload(Window *window) {
+    /* Call generic code */
+    main_window_unload(window);
 
+    /* Start of custom code */
     //Destroy GBitmap
     gbitmap_destroy(s_background_bitmap_renegade);
     gbitmap_destroy(s_background_bitmap_paragon);
 
     //Destroy BitmapLayer
     bitmap_layer_destroy(s_background_layer);
-
-    // Destroy TextLayer
-    text_layer_destroy(s_time_layer);
 }
 
-static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+void custom_tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     /* Test, this changes the image once a minute */
     bg_image = bg_image == RESOURCE_ID_IMAGE_RENEGADE ? RESOURCE_ID_IMAGE_PARAGON : RESOURCE_ID_IMAGE_RENEGADE;
     if (bg_image == RESOURCE_ID_IMAGE_RENEGADE)
@@ -94,13 +78,3 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
     update_time();
 }
-
-
-/*
-int main(void) {
-    init();
-    app_event_loop();
-    deinit();
-}
-*/
-#endif /* CUSTOM */
