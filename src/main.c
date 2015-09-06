@@ -12,92 +12,10 @@
 
 #include <pebble.h>
 
-#define FONT_NAME RESOURCE_ID_FONT_JUPITER_60
+#include "watchface.h"
 
-//#define CLOCK_POS GRect(5, 52, 139, 50)
-#define CLOCK_POS GRect(0, 52, 144, 168) /* probably taller than really needed */
-
-/* PebbleKit JS, Message Keys, Pebble config keys */
-// FIXME why can't this be generated from the json settings file into a header?
-#define KEY_TIME_COLOR 0
-#define KEY_BACKGROUND_COLOR 2
-
-
-static Window    *s_main_window;
-static TextLayer *s_time_layer;
-
-static GFont       s_time_font;
-static BitmapLayer *s_background_layer;
-static GBitmap     *s_background_bitmap_renegade;
-static GBitmap     *s_background_bitmap_paragon;
-
+#ifdef CUSTOM    
 static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
-
-/* For colors, see http://developer.getpebble.com/tools/color-picker/#0000FF */
-static GColor       time_color;
-static GColor       background_color;
-static int          config_time_color;
-static int          config_background_color;
-
-
-static void in_recv_handler(DictionaryIterator *iterator, void *context)
-{
-    Tuple *t=NULL;
-
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "in_recv_handler() called");
-    t = dict_read_first(iterator);
-    while(t != NULL)
-    {
-        switch(t->key)
-        {
-            case KEY_TIME_COLOR:
-                APP_LOG(APP_LOG_LEVEL_DEBUG, "got KEY_TIME_COLOR");
-                config_time_color = (int)t->value->int32;
-                APP_LOG(APP_LOG_LEVEL_DEBUG, "Persisting time color: 0x%06x", config_time_color);
-                persist_write_int(KEY_TIME_COLOR, config_time_color);
-                time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorBlack); // FIXME Aplite colors inverted?
-                text_layer_set_text_color(s_time_layer, time_color);
-                break;
-            
-            case KEY_BACKGROUND_COLOR:
-                APP_LOG(APP_LOG_LEVEL_DEBUG, "got KEY_BACKGROUND_COLOR");
-                config_background_color = (int)t->value->int32;
-                APP_LOG(APP_LOG_LEVEL_DEBUG, "Persisting background color: 0x%06x", config_background_color);
-                persist_write_int(KEY_BACKGROUND_COLOR, config_background_color);
-                background_color = COLOR_FALLBACK(GColorFromHEX(config_background_color), GColorWhite); // FIXME Aplite colors inverted?
-                window_set_background_color(s_main_window, background_color);
-                break;
-            
-            
-                
-            default:
-                APP_LOG(APP_LOG_LEVEL_ERROR, "Unknown key %d! :-(", (int) t->key);
-                break;
-        }
-        t = dict_read_next(iterator);
-    }
-}
-
-static void update_time() {
-    // Get a tm structure
-    time_t    temp = time(NULL);
-    struct tm *tick_time = localtime(&temp);
-
-    // Create a long-lived buffer
-    static char buffer[] = "00:00";
-
-    // Write the current hours and minutes into the buffer
-    if(clock_is_24h_style() == true) {
-        // 2h hour format
-        strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
-    } else {
-        // 12 hour format
-        strftime(buffer, sizeof("00:00"), "%I:%M", tick_time);
-    }
-
-    // Display this time on the TextLayer
-    text_layer_set_text(s_time_layer, buffer);
-}
 
 
 static void main_window_load(Window *window) {
@@ -177,61 +95,12 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
 }
 
-static void init() {
-    time_color = GColorWhite;
-    background_color = GColorBlack;
 
-#ifdef PBL_PLATFORM_BASALT
-    /* Invert - white background - only looks correct on Pebble Time */
-    time_color = GColorBlack;
-    background_color = GColorWhite;
-#endif /* PBL_PLATFORM_BASALT */
-
-#ifdef PBL_PLATFORM_BASALT
-    /* TODO refactor */
-    if (persist_exists(KEY_TIME_COLOR))
-    {
-        config_time_color = persist_read_int(KEY_TIME_COLOR);
-        APP_LOG(APP_LOG_LEVEL_INFO, "Read time color: %x", config_time_color);
-        time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorWhite);
-    }
-    if (persist_exists(KEY_BACKGROUND_COLOR))
-    {
-        config_background_color = persist_read_int(KEY_BACKGROUND_COLOR);
-        APP_LOG(APP_LOG_LEVEL_INFO, "Read background color: %x", config_background_color);
-        background_color = COLOR_FALLBACK(GColorFromHEX(config_background_color), GColorBlack);
-    }
-#endif /* PBL_PLATFORM_BASALT */
-
-    // Create main Window element and assign to pointer
-    s_main_window = window_create();
-
-    // Set handlers to manage the elements inside the Window
-    window_set_window_handlers(s_main_window, (WindowHandlers) {
-                                   .load = main_window_load,
-                                   .unload = main_window_unload
-                               });
-
-    // Show the Window on the watch, with animated=true
-    window_stack_push(s_main_window, true);
-
-    // Register with TickTimerService
-    tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-
-    /* Register config event */
-    /* TODO use AppSync instead? */
-    app_message_register_inbox_received(in_recv_handler);
-    app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum()); 
-
-}
-
-static void deinit() {
-    // Destroy Window
-    window_destroy(s_main_window);
-}
-
+/*
 int main(void) {
     init();
     app_event_loop();
     deinit();
 }
+*/
+#endif /* CUSTOM */

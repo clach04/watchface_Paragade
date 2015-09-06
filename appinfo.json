@@ -13,14 +13,14 @@
     "resources": {
         "media": [
             {
-                "file": "images/icon.png",
-                "menuIcon": true,
-                "name": "IMAGE_ICON",
+                "file": "images/renegade_logo.png",
+                "name": "IMAGE_RENEGADE",
                 "type": "png"
             },
             {
-                "file": "images/renegade_logo.png",
-                "name": "IMAGE_RENEGADE",
+                "file": "images/icon.png",
+                "menuIcon": true,
+                "name": "IMAGE_ICON",
                 "type": "png"
             },
             {
@@ -39,6 +39,7 @@
     "sdkVersion": "3",
     "shortName": "Paragade",
     "targetPlatforms": [
+        "aplite",
         "basalt"
     ],
     "uuid": "df2ce365-5682-4f19-ad4f-9b95f9bac4a7",
