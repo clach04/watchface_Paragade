@@ -15,3 +15,5 @@ Acknowledgements
   * Font ISL Jupiter by Isurus Labs (http://www.dafont.com/isl-jupiter.font)
   * Paragon and Renegade Logo Vector by Karlika (http://karlika.deviantart.com/art/Mass-Effect-Vector-Pack-178422616)
   * Menu Icon by http://jcros.deviantart.com/art/Renegade-or-Paragon-210356653
+
+Store URL https://apps.getpebble.com/en_US/application/55d0e5b635a72bac4a000030
