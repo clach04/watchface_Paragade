@@ -7,6 +7,7 @@
 #undef DEBUG_TIME
 
 #ifdef PBL_PLATFORM_BASALT
+    /* Inverted looks better on Basalt, not so on Aplite */
     #define DEFAULT_TIME_COLOR GColorBlack
     #define DEFAULT_BACKGROUND_COLOR GColorWhite
 #endif /* PBL_PLATFORM_BASALT */
