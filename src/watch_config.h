@@ -14,9 +14,8 @@
 
 #define CLOCK_POS GRect(0, 52, 144, 168) /* probably taller than really needed */
 #define BT_POS GRect(0, 120, 144, 168) /* probably taller than really needed */
-//#define DATE_POS GRect(0, 140, 144, 168) /* probably taller than really needed */
-#define DATE_POS GRect(0, 0, 144, 168) /* probably taller than really needed */
-#define BAT_POS GRect(0, 140, 144, 168) /* probably taller than really needed */
+#define DATE_POS GRect(0, -5, 144 - 5, 168) /* probably taller than really needed */
+#define BAT_POS GRect(5, 144, 144, 168) /* probably taller than really needed */
 
 #define TICK_HANDLER custom_tick_handler
 extern void custom_tick_handler(struct tm *tick_time, TimeUnits units_changed);
