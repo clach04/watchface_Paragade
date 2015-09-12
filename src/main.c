@@ -14,9 +14,9 @@
 
 #include "watchface.h"
 
-BitmapLayer *s_background_layer=NULL;
+static BitmapLayer *s_background_layer=NULL;  /* NOTE s_bg_image is NOT defined */
 
-static uint32_t bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
+static uint32_t s_bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
 static GBitmap     *s_background_bitmap_renegade=NULL;
 static GBitmap     *s_background_bitmap_paragon=NULL;
 
@@ -29,7 +29,7 @@ void custom_main_window_load(Window *window) {
     s_background_bitmap_paragon = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PARAGON);
     
     s_background_layer = bitmap_layer_create(bounds);
-    if (bg_image == RESOURCE_ID_IMAGE_RENEGADE)
+    if (s_bg_image == RESOURCE_ID_IMAGE_RENEGADE)
     {
         bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_renegade);
     }
@@ -43,7 +43,7 @@ void custom_main_window_load(Window *window) {
      bitmap_layer_set_compositing_mode(s_background_layer, GCompOpSet);
 #endif
 
-    window_set_background_color(s_main_window, background_color);
+    window_set_background_color(main_window, background_color);
 
     layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
     
@@ -66,8 +66,8 @@ void custom_main_window_unload(Window *window) {
 
 void custom_tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     /* Test, this changes the image once a minute */
-    bg_image = bg_image == RESOURCE_ID_IMAGE_RENEGADE ? RESOURCE_ID_IMAGE_PARAGON : RESOURCE_ID_IMAGE_RENEGADE;
-    if (bg_image == RESOURCE_ID_IMAGE_RENEGADE)
+    s_bg_image = s_bg_image == RESOURCE_ID_IMAGE_RENEGADE ? RESOURCE_ID_IMAGE_PARAGON : RESOURCE_ID_IMAGE_RENEGADE;
+    if (s_bg_image == RESOURCE_ID_IMAGE_RENEGADE)
     {
         bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_renegade);
     }
