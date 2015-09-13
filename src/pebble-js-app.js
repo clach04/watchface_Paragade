@@ -32,7 +32,8 @@ Pebble.addEventListener('showConfiguration', function(e) {
   }
 
   //var URL = 'http://clach04.github.io/pebble/JupiterMass/nojquery_pebble-config.html' +
-  var URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html' +
+  //var URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html' +
+  var URL = 'http://clach04.github.io/pebble/watchface_framework/slate/index.html' + // debug until next release to support vibrate option (do not want to expose vibrate to existing users when it is not a valid option for the public version)
       '?' +
       'background_color=' + background_color + '&' +
       'time_color=' + time_color + '&' +
