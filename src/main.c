@@ -32,7 +32,7 @@ void setup_effects(Window *window)
     effect_layer = effect_layer_create(CLOCK_POS);
 
     shadow.orig_color = time_color;
-    shadow.offset_color = COLOR_FALLBACK(GColorYellow, background_color); // FIXME/TODO
+    shadow.offset_color = background_color;
     shadow.offset_y = 2;
     shadow.offset_x = 2;
 
