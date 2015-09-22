@@ -13,14 +13,8 @@
     "resources": {
         "media": [
             {
-                "file": "images/icon.png",
-                "menuIcon": true,
-                "name": "IMAGE_ICON",
-                "type": "png"
-            },
-            {
-                "file": "images/renegade_logo.png",
-                "name": "IMAGE_RENEGADE",
+                "file": "images/paragon_logo.png",
+                "name": "IMAGE_PARAGON",
                 "type": "png"
             },
             {
@@ -30,8 +24,14 @@
                 "type": "font"
             },
             {
-                "file": "images/paragon_logo.png",
-                "name": "IMAGE_PARAGON",
+                "file": "images/icon.png",
+                "menuIcon": true,
+                "name": "IMAGE_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/renegade_logo.png",
+                "name": "IMAGE_RENEGADE",
                 "type": "png"
             }
         ]
