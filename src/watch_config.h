@@ -14,7 +14,10 @@
 
 //#define CLOCK_POS GRect(0, 52, 144, 90) /* probably taller than really needed */
 #define CLOCK_POS GRect(0, 52, 144, 120 - 52) /* probably taller than really needed */
-#define BT_POS GRect(0, 120, 144, 168) /* probably taller than really needed */
+
+#define FONT_BT_SYSTEM_NAME FONT_KEY_GOTHIC_18_BOLD
+#define BT_POS GRect(0, 30, 144, 168) /* probably taller than really needed */
+
 #define DATE_POS GRect(0, -5, 144 - 5, 168) /* probably taller than really needed */
 #define BAT_POS GRect(5, 144, 144, 168) /* probably taller than really needed */
 
