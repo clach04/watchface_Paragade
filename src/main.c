@@ -85,9 +85,6 @@ void custom_main_window_load(Window *window) {
 
     /* Custom code */
     setup_effects(window); // move me?
-    // do another redreaw :-(
-    update_time();
-
 }
 
 void custom_main_window_unload(Window *window) {
