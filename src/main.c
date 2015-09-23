@@ -24,20 +24,20 @@ static GBitmap     *s_background_bitmap_renegade=NULL;
 static GBitmap     *s_background_bitmap_paragon=NULL;
 
 static EffectLayer* effect_layer=NULL;
-static EffectOffset shadow;
+static EffectOffset effect_offset;
 
 void setup_effects(Window *window)
 {
     //effect_layer = effect_layer_create(GRect(0, 0, 144, 168)); // will cover entire screen
     effect_layer = effect_layer_create(CLOCK_POS);
 
-    shadow.orig_color = time_color;
-    shadow.offset_color = background_color;
-    shadow.offset_y = 2;
-    shadow.offset_x = 2;
+    effect_offset.orig_color = time_color;
+    effect_offset.offset_color = background_color;
+    effect_offset.offset_y = 2;
+    effect_offset.offset_x = 2;
 
-    //effect_layer_add_effect(effect_layer, effect_shadow, &shadow);
-    effect_layer_add_effect(effect_layer, effect_outline, &shadow);
+    //effect_layer_add_effect(effect_layer, effect_shadow, &effect_offset);
+    effect_layer_add_effect(effect_layer, effect_outline, &effect_offset);
     //effect_layer_add_effect(effect_layer, effect_invert, NULL);
     //effect_layer_add_effect(effect_layer, effect_invert_bw_only, NULL);
     //effect_layer_add_effect(effect_layer, effect_rotate_90_degrees, (void *)true); // rotates 90 degrees counterclockwise
