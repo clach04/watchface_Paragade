@@ -14,8 +14,6 @@
 
 #include "watchface.h"
 
-#include "effect_layer.h"
-
 
 static BitmapLayer *s_background_layer=NULL;  /* NOTE s_bg_image is NOT defined */
 
@@ -23,35 +21,6 @@ static uint32_t s_bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_
 static GBitmap     *s_background_bitmap_renegade=NULL;
 static GBitmap     *s_background_bitmap_paragon=NULL;
 
-static EffectLayer* effect_layer=NULL;
-static EffectOffset effect_offset;
-
-void setup_effects(Window *window)
-{
-    //effect_layer = effect_layer_create(GRect(0, 0, 144, 168)); // will cover entire screen
-    effect_layer = effect_layer_create(CLOCK_POS);
-
-    effect_offset.orig_color = time_color;
-    effect_offset.offset_color = background_color;
-    effect_offset.offset_y = 2;
-    effect_offset.offset_x = 2;
-
-    //effect_layer_add_effect(effect_layer, effect_shadow, &effect_offset);
-    effect_layer_add_effect(effect_layer, effect_outline, &effect_offset);
-    //effect_layer_add_effect(effect_layer, effect_invert, NULL);
-    //effect_layer_add_effect(effect_layer, effect_invert_bw_only, NULL);
-    //effect_layer_add_effect(effect_layer, effect_rotate_90_degrees, (void *)true); // rotates 90 degrees counterclockwise
-
-    layer_add_child(window_get_root_layer(window), effect_layer_get_layer(effect_layer));
-}
-
-void cleanup_effects()
-{
-    if (effect_layer)
-    {
-        effect_layer_destroy(effect_layer);
-    }
-}
 
 void custom_main_window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
@@ -82,14 +51,9 @@ void custom_main_window_load(Window *window) {
 
     /* End of custom code, call generic code */
     main_window_load(window);
-
-    /* Custom code */
-    setup_effects(window); // move me?
 }
 
 void custom_main_window_unload(Window *window) {
-    cleanup_effects();
-
     /* Call generic code */
     main_window_unload(window);
 

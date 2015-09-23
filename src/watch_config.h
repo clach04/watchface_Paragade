@@ -12,6 +12,8 @@
     #define DEFAULT_BACKGROUND_COLOR GColorWhite
 #endif /* PBL_PLATFORM_BASALT */
 
+#define USE_SHADOW_TIME_EFFECT
+
 //#define CLOCK_POS GRect(0, 52, 144, 90) /* probably taller than really needed */
 #define CLOCK_POS GRect(0, 52, 144, 120 - 52) /* probably taller than really needed */
 
