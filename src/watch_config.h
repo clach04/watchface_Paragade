@@ -31,3 +31,9 @@ extern void custom_main_window_load(Window *window);
 
 #define MAIN_WINDOW_UNLOAD custom_main_window_unload
 extern void custom_main_window_unload(Window *window);
+
+/* for screen shots
+#define DEBUG_TICK_HANDLER custom_tick_handler
+#define DEBUG_TIME
+#define DEBUG_TIME_PAUSE 2000
+ */
