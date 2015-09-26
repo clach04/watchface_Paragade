@@ -14,11 +14,13 @@
 
 #include "watchface.h"
 
+
 static BitmapLayer *s_background_layer=NULL;  /* NOTE s_bg_image is NOT defined */
 
 static uint32_t s_bg_image=RESOURCE_ID_IMAGE_RENEGADE;  // or RESOURCE_ID_IMAGE_PARAGON
 static GBitmap     *s_background_bitmap_renegade=NULL;
 static GBitmap     *s_background_bitmap_paragon=NULL;
+
 
 void custom_main_window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
@@ -46,7 +48,7 @@ void custom_main_window_load(Window *window) {
     window_set_background_color(main_window, background_color);
 
     layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
-    
+
     /* End of custom code, call generic code */
     main_window_load(window);
 }

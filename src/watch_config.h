@@ -12,8 +12,14 @@
     #define DEFAULT_BACKGROUND_COLOR GColorWhite
 #endif /* PBL_PLATFORM_BASALT */
 
-#define CLOCK_POS GRect(0, 52, 144, 168) /* probably taller than really needed */
-#define BT_POS GRect(0, 120, 144, 168) /* probably taller than really needed */
+#define USE_SHADOW_TIME_EFFECT
+
+//#define CLOCK_POS GRect(0, 52, 144, 90) /* probably taller than really needed */
+#define CLOCK_POS GRect(0, 52, 144, 120 - 52) /* probably taller than really needed */
+
+#define FONT_BT_SYSTEM_NAME FONT_KEY_GOTHIC_18_BOLD
+#define BT_POS GRect(0, 30, 144, 168) /* probably taller than really needed */
+
 #define DATE_POS GRect(0, -5, 144 - 5, 168) /* probably taller than really needed */
 #define BAT_POS GRect(5, 144, 144, 168) /* probably taller than really needed */
 
@@ -25,3 +31,9 @@ extern void custom_main_window_load(Window *window);
 
 #define MAIN_WINDOW_UNLOAD custom_main_window_unload
 extern void custom_main_window_unload(Window *window);
+
+/* for screen shots
+#define DEBUG_TICK_HANDLER custom_tick_handler
+#define DEBUG_TIME
+#define DEBUG_TIME_PAUSE 2000
+ */

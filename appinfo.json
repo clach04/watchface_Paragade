@@ -13,10 +13,9 @@
     "resources": {
         "media": [
             {
-                "characterRegex": "[0-9:]",
-                "file": "fonts/jupiter.ttf",
-                "name": "FONT_JUPITER_60",
-                "type": "font"
+                "file": "images/paragon_logo.png",
+                "name": "IMAGE_PARAGON",
+                "type": "png"
             },
             {
                 "file": "images/renegade_logo.png",
@@ -24,15 +23,16 @@
                 "type": "png"
             },
             {
-                "file": "images/paragon_logo.png",
-                "name": "IMAGE_PARAGON",
-                "type": "png"
-            },
-            {
                 "file": "images/icon.png",
                 "menuIcon": true,
                 "name": "IMAGE_ICON",
                 "type": "png"
+            },
+            {
+                "characterRegex": "[0-9:]",
+                "file": "fonts/jupiter.ttf",
+                "name": "FONT_JUPITER_60",
+                "type": "font"
             }
         ]
     },
