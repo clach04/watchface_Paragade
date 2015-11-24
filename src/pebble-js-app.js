@@ -1,27 +1,18 @@
-Pebble.addEventListener('ready', function() {
-  console.log('PebbleKit JS ready!');
-});
+function getStorageValue(item, default_value){
+    var retVal = localStorage.getItem(item);
+    //console.log('value' + item + ': ' + String(retVal));
+    if (retVal === null || retVal == 'undefined' || retVal == 'null'){
+        retVal = default_value;
+    }
+    return retVal;
+}
 
 Pebble.addEventListener('showConfiguration', function(e) {
-  var background_color = localStorage.getItem('background_color');
-  if (!background_color)
-  {
-      // http://developer.getpebble.com/tools/color-picker/#0000FF
-      background_color = "FFFFFF";  // GColorWhite
-  }
-  var time_color = localStorage.getItem('time_color');
-  if (!time_color)
-  {
-      // http://developer.getpebble.com/tools/color-picker/#0000FF
-      time_color = "000000";  // GColorBlack
-  }
+  // http://developer.getpebble.com/tools/color-picker/
+  var background_color = getStorageValue('background_color', '000000'); // GColorBlack
+  var time_color = getStorageValue('time_color', 'FFFFFF'); // GColorWhite
   var vibrate_disconnect_str = 'off';
-  var vibrate_disconnect = localStorage.getItem('vibrate_disconnect');
-  if (! vibrate_disconnect)
-  {
-      console.log('!vibrate_disconnect: ');
-      vibrate_disconnect = 0;
-  }
+  var vibrate_disconnect = getStorageValue('vibrate_disconnect', 0);
   if (vibrate_disconnect == 1)
   {
       vibrate_disconnect_str = 'on';
@@ -31,15 +22,11 @@ Pebble.addEventListener('showConfiguration', function(e) {
       vibrate_disconnect_str = 'off';
   }
 
-  //var URL = 'http://clach04.github.io/pebble/JupiterMass/nojquery_pebble-config.html' +
-  //var URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html' +
-  var URL = 'http://clach04.github.io/pebble/watchface_framework/slate/index.html' + // debug until next release to support vibrate option (do not want to expose vibrate to existing users when it is not a valid option for the public version)
+  var URL = 'http://clach04.github.io/pebble/watchface_framework/slate/index.html' +
       '?' +
-      'background_color=' + background_color + '&' +
-      'time_color=' + time_color + '&' +
-      'vibrate_disconnect=' + vibrate_disconnect;
-  // URL params not used....
-  //URL = 'http://clach04.github.io/pebble/Paragade/slate/index.html';
+      'background_color=' + encodeURIComponent(background_color) + '&' +
+      'time_color=' + encodeURIComponent(time_color) + '&' +
+      'vibrate_disconnect=' + encodeURIComponent(vibrate_disconnect);
   console.log('Configuration window opened. ' + URL);
   Pebble.openURL(URL);
 });
@@ -53,6 +40,7 @@ Pebble.addEventListener('webviewclosed',
             var vibrate_disconnect = 0;
 
             console.log('dictionary to validate ' + JSON.stringify(configuration));
+
             if ('vibrate_disconnect' in configuration)
             {
                 switch (configuration.vibrate_disconnect) {
@@ -72,7 +60,7 @@ Pebble.addEventListener('webviewclosed',
             }
             var dictionary = {
               "KEY_TIME_COLOR": parseInt(configuration.time_color, 16),
-              "KEY_BACKGROUND_COLOR": parseInt(configuration.background_color, 16),
+              "KEY_BACKGROUND_COLOR": parseInt(configuration.background_color, 16), // FIXME if mising default value..
               "KEY_VIBRATE_ON_DISCONNECT": vibrate_disconnect
             };
             console.log('background_color ' + configuration.background_color);

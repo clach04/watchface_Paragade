@@ -137,7 +137,7 @@ void handle_battery(BatteryChargeState charge_state) {
         text_layer_set_text_color(battery_layer, COLOR_FALLBACK(GColorGreen, time_color));
     } else {
         snprintf(battery_text, sizeof(battery_text), BAT_FMT_STR, charge_state.charge_percent);
-#ifdef PBL_PLATFORM_BASALT
+#ifdef PBL_COLOR
         /* TODO Check charge level and change color? E.g. red at 10%/20% */
         if (charge_state.charge_percent <= 20)
         {
@@ -190,8 +190,12 @@ void setup_date(Window *window)
     text_layer_set_text(date_layer, MAX_DATE_STR);
 
     /* Apply to TextLayer */
+#ifdef USE_TIME_FONT_FOR_DATE
+    text_layer_set_font(date_layer, time_font);
+#else
     text_layer_set_font(date_layer, fonts_get_system_font(FONT_DATE_SYSTEM_NAME));
-    text_layer_set_text_alignment(date_layer, GTextAlignmentRight);
+#endif /*  USE_TIME_FONT_FOR_DATE */
+    text_layer_set_text_alignment(date_layer, DATE_ALIGN);
 
     // Add it as a child layer to the Window's root layer
     layer_add_child(window_get_root_layer(window), text_layer_get_layer(date_layer));
@@ -221,9 +225,9 @@ void setup_bg_image(Window *window, uint32_t resource_id, GRect bounds)
 
     bitmap_layer_set_bitmap(background_layer, background_bitmap);
 
-#ifdef PBL_PLATFORM_APLITE
+#ifdef PBL_BW
      bitmap_layer_set_compositing_mode(background_layer, GCompOpAssign);
-#elif PBL_PLATFORM_BASALT
+#elif PBL_COLOR
      bitmap_layer_set_compositing_mode(background_layer, GCompOpSet);
 #endif
 
@@ -260,6 +264,7 @@ void update_time() {
 
         #ifdef DEBUG_TIME_SCREENSHOT
             strcpy(buffer, debug_time_list[3]);
+            light_enable(true);  // mostly for emulator
         #else
             strcpy(buffer, debug_time_list[str_counter]);
             str_counter++;
@@ -419,8 +424,20 @@ void in_recv_handler(DictionaryIterator *iterator, void *context)
                 persist_write_int(KEY_TIME_COLOR, config_time_color);
                 time_color = COLOR_FALLBACK(GColorFromHEX(config_time_color), GColorWhite);
                 text_layer_set_text_color(time_layer, time_color);
-                text_layer_set_text_color(date_layer, time_color);
-                text_layer_set_text_color(bluetooth_layer, time_color);
+
+                if (date_layer) /* or #ifndef NO_DATE */
+                {
+                    text_layer_set_text_color(date_layer, time_color);
+                }
+                if (battery_layer)
+                {
+                    text_layer_set_text_color(battery_layer, time_color);
+                }
+                if (bluetooth_layer)
+                {
+                    text_layer_set_text_color(bluetooth_layer, time_color);
+                }
+                APP_LOG(APP_LOG_LEVEL_DEBUG, "TIME COLOR DONE");
                 break;
 
             case KEY_BACKGROUND_COLOR:
@@ -430,6 +447,7 @@ void in_recv_handler(DictionaryIterator *iterator, void *context)
                 persist_write_int(KEY_BACKGROUND_COLOR, config_background_color);
                 background_color = COLOR_FALLBACK(GColorFromHEX(config_background_color), GColorWhite); // FIXME Aplite colors inverted?
                 window_set_background_color(main_window, background_color);
+                APP_LOG(APP_LOG_LEVEL_DEBUG, "BACKGROUND COLOR DONE");
                 break;
 
             case KEY_VIBRATE_ON_DISCONNECT:
@@ -453,7 +471,7 @@ void init()
     time_color = DEFAULT_TIME_COLOR;
     background_color = DEFAULT_BACKGROUND_COLOR;
 
-#ifdef PBL_PLATFORM_BASALT
+#ifdef PBL_COLOR
     /* TODO refactor */
     if (persist_exists(KEY_TIME_COLOR))
     {
@@ -467,7 +485,7 @@ void init()
         APP_LOG(APP_LOG_LEVEL_INFO, "Read background color: %x", config_background_color);
         background_color = COLOR_FALLBACK(GColorFromHEX(config_background_color), GColorBlack);
     }
-#endif /* PBL_PLATFORM_BASALT */
+#endif /* PBL_COLOR */
 
     if (persist_exists(KEY_VIBRATE_ON_DISCONNECT))
     {
