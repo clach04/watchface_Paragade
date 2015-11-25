@@ -23,6 +23,10 @@
 #define DATE_POS GRect(0, -5, 144 - 5, 168) /* probably taller than really needed */
 #define BAT_POS GRect(5, 144, 144, 168) /* probably taller than really needed */
 
+#define RESOURCE_ID_IMAGE_ALT RESOURCE_ID_IMAGE_RENEGADE
+#define RESOURCE_ID_IMAGE_MAIN RESOURCE_ID_IMAGE_PARAGON
+
+#define FAST_SWITCH  /* useful for debug */
 #define TICK_HANDLER custom_tick_handler
 extern void custom_tick_handler(struct tm *tick_time, TimeUnits units_changed);
 
