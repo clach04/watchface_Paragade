@@ -1,3 +1,13 @@
+/*
+** Paragade watch face - Color or Mono
+**
+** Acknowledgements
+**   * Font ISL Jupiter by Isurus Labs
+**       * http://www.dafont.com/isl-jupiter.font
+**   * Logo Vector by Karlika
+**       * http://karlika.deviantart.com/art/Mass-Effect-Vector-Pack-178422616
+*/
+
 #pragma once
 
 #define USE_GENERIC_MAIN

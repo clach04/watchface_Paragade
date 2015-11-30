@@ -1,13 +1,10 @@
 /*
-** Renegade watch face - Color or Mono
+** Watchface Framework - Color or Mono
 **
-** Acknowledgements
-**   * This is only a slightly modified version of Pebble Watchface tutorial
-**       * http://developer.getpebble.com/getting-started/watchface-tutorial/part2/
-**   * Font ISL Jupiter by Isurus Labs
-**       * http://www.dafont.com/isl-jupiter.font
-**   * Logo Vector by Karlika
-**       * http://karlika.deviantart.com/art/Mass-Effect-Vector-Pack-178422616
+**    https://github.com/clach04/watchface_framework
+**
+** This file may not be needed. This is only needed if additional C code is required.
+** This file implements two images, switched once per minute.
 */
 
 #include <pebble.h>
@@ -55,10 +52,10 @@ void custom_main_window_load(Window *window) {
         bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap_alt);
     }
 
-#ifdef PBL_PLATFORM_APLITE
-     bitmap_layer_set_compositing_mode(s_background_layer, GCompOpAssign);
-#elif PBL_PLATFORM_BASALT
+#ifdef PBL_COLOR
      bitmap_layer_set_compositing_mode(s_background_layer, GCompOpSet);
+#else /* PBL_BW MONO */
+     bitmap_layer_set_compositing_mode(s_background_layer, GCompOpAssign);
 #endif
 
     window_set_background_color(main_window, background_color);
