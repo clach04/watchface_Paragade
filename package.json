@@ -1,0 +1,58 @@
+{
+    "author": "clach04",
+    "dependencies": {
+        "pebble-clay": "^1.0.1",
+        "pebble-effect-layer": "^1.1.1"
+    },
+    "keywords": [],
+    "name": "paragade",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "Paragade",
+        "enableMultiJS": true,
+        "messageKeys": [
+            "TIME_COLOR",
+            "VIBRATE_ON_DISCONNECT",
+            "BACKGROUND_COLOR"
+        ],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/renegade_logo.png",
+                    "name": "IMAGE_RENEGADE",
+                    "type": "png"
+                },
+                {
+                    "file": "images/paragon_logo.png",
+                    "name": "IMAGE_PARAGON",
+                    "type": "png"
+                },
+                {
+                    "file": "images/icon.png",
+                    "menuIcon": true,
+                    "name": "IMAGE_ICON",
+                    "type": "png"
+                },
+                {
+                    "characterRegex": "[0-9:]",
+                    "file": "fonts/jupiter.ttf",
+                    "name": "FONT_JUPITER_60",
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt"
+        ],
+        "uuid": "449d268b-9826-423f-998a-3276b3b395eb",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "0.6.0"
+}
