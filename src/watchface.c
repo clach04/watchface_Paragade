@@ -2,7 +2,7 @@
 #include "watchface.h"
 
 #ifdef USE_SHADOW_TIME_EFFECT
-#include "effect_layer.h"  /* from https://github.com/ygalanter/EffectLayer */
+#include <pebble-effect-layer/pebble-effect-layer.h>  /* from https://github.com/ygalanter/EffectLayer */
 #endif /* USE_SHADOW_TIME_EFFECT */
 
 

@@ -1,7 +1,8 @@
 {
     "author": "clach04",
     "dependencies": {
-        "pebble-clay": "^1.0.1"
+        "pebble-clay": "^1.0.1",
+        "pebble-effect-layer": "^1.1.1"
     },
     "keywords": [],
     "name": "paragade",
@@ -46,8 +47,7 @@
         "sdkVersion": "3",
         "targetPlatforms": [
             "aplite",
-            "basalt",
-            "chalk"
+            "basalt"
         ],
         "uuid": "449d268b-9826-423f-998a-3276b3b395eb",
         "watchapp": {
