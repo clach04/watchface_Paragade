@@ -24,4 +24,4 @@ Acknowledgements
   * Paragon and Renegade Logo Vector by Karlika (http://karlika.deviantart.com/art/Mass-Effect-Vector-Pack-178422616)
   * Menu Icon by http://jcros.deviantart.com/art/Renegade-or-Paragon-210356653
 
-Store URL https://apps.getpebble.com/en_US/application/55d0e5b635a72bac4a000030
+Store URL https://apps.rebble.io/en_US/application/55d0e5b635a72bac4a000030?dev_settings=true also see GitHub releases.
