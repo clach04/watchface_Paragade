@@ -20,7 +20,7 @@ Basic digital watch face for the Pebble smartwatch. Features:
 Acknowledgements
 
   * Font ISL Jupiter by Isurus Labs (http://www.dafont.com/isl-jupiter.font)
-  * Font outline handled via https://github.com/ygalanter/EffectLayer
+  * Font outline handled via https://github.com/ygalanter/pebble-effect-layer
   * Paragon and Renegade Logo Vector by Karlika (http://karlika.deviantart.com/art/Mass-Effect-Vector-Pack-178422616)
   * Menu Icon by http://jcros.deviantart.com/art/Renegade-or-Paragon-210356653
 
